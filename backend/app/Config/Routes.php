@@ -17,3 +17,6 @@ $routes->get('loginPage', 'Users::loginPage');
 
 // Example route for users section
 $routes->get('user', 'Users::index');
+
+$routes->get('signupPage', 'Users::signupPage'); // ✅ Added route
+$routes->get('userLanding', 'UserLanding::index'); // Protected user landing page
