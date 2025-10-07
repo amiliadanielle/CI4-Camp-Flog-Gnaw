@@ -20,3 +20,8 @@ $routes->get('user', 'Users::index');
 
 $routes->get('signupPage', 'Users::signupPage'); // ✅ Added route
 $routes->get('userLanding', 'UserLanding::index'); // Protected user landing page
+$routes->get('dashboard', 'Users::dashboard'); // loads dashboard view
+$routes->post('login', 'Users::login'); // 🔹 Handles POST from form
+$routes->get('logout', 'Users::logout');
+
+
