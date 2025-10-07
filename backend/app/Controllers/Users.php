@@ -8,11 +8,16 @@ class Users extends BaseController
 {
     public function index(): string
     {
-        return view('user/landing'); // loads app/Views/users/index.php
+        return view('user/landing'); // Landing page
     }
 
     public function loginPage(): string
     {
-        return view('user/loginPage'); // loads app/Views/users/login.php
+        return view('user/loginPage'); // Login page
+    }
+
+    public function signupPage(): string
+    {
+        return view('user/signupPage'); // ✅ New signup page
     }
 }
