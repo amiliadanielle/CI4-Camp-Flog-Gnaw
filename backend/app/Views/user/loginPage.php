@@ -50,7 +50,7 @@
     <div class="w-1/2 p-10 flex flex-col justify-center bg-white/90">
       <h2 class="text-2xl font-semibold text-orange-600 mb-6">LOG IN</h2>
 
-      <form action="<?= base_url('loginPage'); ?>" method="post" class="space-y-4">
+      <form action="<?= base_url('login'); ?>" method="post" class="space-y-4">
         <!-- Email -->
         <input type="email" name="email" placeholder="Email" 
           class="w-full px-4 py-2 border border-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400">
