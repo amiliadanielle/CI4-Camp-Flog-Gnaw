@@ -56,7 +56,6 @@
 
     <!-- Cards Section -->
  <?= view('components/cards'); ?>
- <?= view('components/button', ['label' => 'LEARN MORE']); ?>
 
 <!-- Flog Archive Section -->
 <section class="bg-sky-100 px-32 py-16">
