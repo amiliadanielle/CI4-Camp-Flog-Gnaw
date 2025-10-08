@@ -28,11 +28,20 @@ $routes->get('moodboard', 'Users::moodboard');
 
 $routes->get('roadmap', 'Roadmap::index');
 $routes->get('roadmap/create', 'Roadmap::create');
+$routes->post('roadmap/create', 'Roadmap::create');
 $routes->post('roadmap/store', 'Roadmap::store');
 $routes->get('roadmap/edit/(:num)', 'Roadmap::edit/$1');
 $routes->post('roadmap/update/(:num)', 'Roadmap::update/$1');
 $routes->get('roadmap/delete/(:num)', 'Roadmap::delete/$1');
 $routes->match(['get', 'post'], 'roadmap', 'Roadmap::index');
+
+$routes->get('roadmap', 'Roadmap::index');
+$routes->post('roadmap', 'Roadmap::index');
+$routes->get('roadmap/edit/(:segment)', 'Roadmap::edit/$1');
+$routes->get('roadmap/delete/(:segment)', 'Roadmap::delete/$1');
+
+
+
 
 
 
