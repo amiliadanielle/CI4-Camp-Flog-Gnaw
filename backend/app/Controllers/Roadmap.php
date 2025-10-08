@@ -44,22 +44,24 @@ class Roadmap extends BaseController
                 }
                 $session->set('tasks', $tasks);
                 break;
-
-            case 'delete':
-                $id = $this->request->getPost('id');
-                $tasks = array_filter($tasks, fn($t) => $t['id'] !== $id);
-                $session->set('tasks', array_values($tasks));
-                break;
         }
 
+        return view('user/roadmap', [
+            'tasks' => $tasks,
+            'editTask' => null
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $session = session();
+        $tasks = $session->get('tasks') ?? [];
         $editTask = null;
-        if ($this->request->getPost('edit')) {
-            $id = $this->request->getPost('id');
-            foreach ($tasks as $task) {
-                if ($task['id'] === $id) {
-                    $editTask = $task;
-                    break;
-                }
+
+        foreach ($tasks as $task) {
+            if ($task['id'] === $id) {
+                $editTask = $task;
+                break;
             }
         }
 
@@ -67,5 +69,16 @@ class Roadmap extends BaseController
             'tasks' => $tasks,
             'editTask' => $editTask
         ]);
+    }
+
+    public function delete($id)
+    {
+        $session = session();
+        $tasks = $session->get('tasks') ?? [];
+
+        $tasks = array_filter($tasks, fn($t) => $t['id'] !== $id);
+        $session->set('tasks', array_values($tasks));
+
+        return redirect()->to(site_url('roadmap'));
     }
 }
