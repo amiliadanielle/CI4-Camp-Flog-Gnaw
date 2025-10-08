@@ -44,6 +44,12 @@ class Roadmap extends BaseController
                 }
                 $session->set('tasks', $tasks);
                 break;
+
+            case 'delete':
+                $id = $this->request->getPost('id');
+                $tasks = array_filter($tasks, fn($t) => $t['id'] !== $id);
+                $session->set('tasks', array_values($tasks));
+                break;
         }
 
         return view('user/roadmap', [
@@ -52,6 +58,7 @@ class Roadmap extends BaseController
         ]);
     }
 
+    // ✅ Handle clicking “Edit”
     public function edit($id)
     {
         $session = session();
@@ -71,6 +78,7 @@ class Roadmap extends BaseController
         ]);
     }
 
+    // ✅ Handle clicking “Delete”
     public function delete($id)
     {
         $session = session();
