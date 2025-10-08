@@ -24,4 +24,19 @@ $routes->get('dashboard', 'Users::dashboard'); // loads dashboard view
 $routes->post('login', 'Users::login'); // 🔹 Handles POST from form
 $routes->get('logout', 'Users::logout');
 
+$routes->get('moodboard', 'Users::moodboard');
+
+$routes->get('roadmap', 'Roadmap::index');
+$routes->get('roadmap/create', 'Roadmap::create');
+$routes->post('roadmap/store', 'Roadmap::store');
+$routes->get('roadmap/edit/(:num)', 'Roadmap::edit/$1');
+$routes->post('roadmap/update/(:num)', 'Roadmap::update/$1');
+$routes->get('roadmap/delete/(:num)', 'Roadmap::delete/$1');
+$routes->match(['get', 'post'], 'roadmap', 'Roadmap::index');
+
+
+
+
+
+
 

@@ -67,4 +67,10 @@ class Users extends BaseController
         session()->destroy();
         return redirect()->to(base_url('loginPage'));
     }
+
+   public function moodboard()
+{
+    return view('user/moodboard');
+}
+
 }

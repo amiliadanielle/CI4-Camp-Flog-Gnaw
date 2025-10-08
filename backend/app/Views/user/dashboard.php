@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,13 +49,14 @@
         <i class="fas fa-user-circle text-xl"></i>
       </button>
 
-      <!-- Dropdown Menu -->
-      <div class="absolute right-0 mt-3 w-40 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-        <a href="<?= site_url('profile'); ?>" class="block px-4 py-2 hover:bg-gray-200">Account</a>
-        <a href="<?= site_url('logout'); ?>" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
-      </div>
-    </div>
-  </nav>
+<!-- Dropdown Menu -->
+<div class="absolute right-0 mt-3 w-40 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+  <a href="<?= site_url('profile'); ?>" class="block px-4 py-2 hover:bg-gray-200">Account</a>
+  <a href="<?= site_url('moodboard'); ?>" class="block px-4 py-2 hover:bg-gray-200">Mood Board</a>
+  <a href="<?= site_url('roadmap'); ?>" class="block px-4 py-2 hover:bg-gray-200">Road Map</a>
+  <a href="<?= site_url('logout'); ?>" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
+</div>
+
 </header>
 
   <!-- Main Content (with background image only here) -->
