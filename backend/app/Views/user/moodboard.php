@@ -175,5 +175,8 @@
     </section>
   </main>
 
+     <!-- Include Footer -->
+  <?= $this->include('components/footer'); ?>
+  
 </body>
 </html>
