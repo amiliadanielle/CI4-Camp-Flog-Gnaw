@@ -1,3 +1,5 @@
+readme.md
+
 <a name="readme-top"></a>
 
 <br/>
@@ -8,18 +10,17 @@
     <img src="./assets/img/nyebe_white.png" alt="Nyebe" width="130" height="100">
   </a>
 <!-- * Title Section -->
-  <h3 align="center">AD - CI4 Template</h3>
+  <h3 align="center">AD - Camp Flog Gnaw</h3>
 </div>
 
 <!-- * Description Section -->
 <div align="center">
-This repository is a beginner-friendly CodeIgniter 4 template.  
-It helps teams quickly bootstrap backend + frontend projects, with simple sample modules that show how to extend the system.
+Camp Flog Gnaw is a community-driven platform inspired by the iconic festival, showcasing music, streetwear, and creative culture in one space. This project is a demo storefront and content hub where fans can explore event details, browse limited drops, and connect with the vibe of Camp Flog Gnaw.
 </div>
 
 <br/>
 
-![](https://visit-counter.vercel.app/counter.png?page=zyx-0314/ci4-template)
+![](https://visit-counter.vercel.app/counter.png?page=zyx-0314/CI4-Camp-Flog-Gnaw)
 
 <!-- ! Make sure it was similar to your github -->
 
@@ -55,12 +56,13 @@ It helps teams quickly bootstrap backend + frontend projects, with simple sample
 
 ## Overview
 
-This template provides a **minimal CodeIgniter 4 project layout** with conventions for file organization, commit practices, and simple modules.
+Camp Flog Gnaw is a lifestyle and culture platform inspired by the annual Camp Flog Gnaw Carnival — a space where music, fashion, and art collide. More than just an event, it represents creativity, community, and bold self-expression.
 
-It is designed to be **easy to start with** and a **reference for adding new features**.
+The website concept is designed to let fans explore festival lineups, browse exclusive merch drops, view highlights from past years, and engage with interactive content that captures the spirit of Camp Flog Gnaw.
 
-* **Purpose**: a clean starting point for CI4 apps.
-* **Audience**: developers who want a predictable structure and quick onboarding.
+* Purpose: to celebrate and extend the Camp Flog Gnaw experience into a digital hub where fans can connect year‑round.
+* Audience: music lovers, streetwear enthusiasts, and creative communities who value culture, individuality, and authentic experiences.
+
 
 ### Key Components
 
@@ -91,9 +93,6 @@ These are **sample modules** included (or suggested) for learning how to add fea
 #### Databases
 
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge\&logo=mysql\&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge\&logo=postgresql\&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge\&logo=mongodb\&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge\&logo=firebase\&logoColor=black)
 
 <!-- ! Keep only the used technology -->
 
