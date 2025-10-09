@@ -20,7 +20,7 @@ Camp Flog Gnaw is a community-driven platform inspired by the iconic festival, s
 
 <br/>
 
-![](https://visit-counter.vercel.app/counter.png?page=zyx-0314/ci4-template)
+![](https://visit-counter.vercel.app/counter.png?page=zyx-0314/CI4-Camp-Flog-Gnaw)
 
 <!-- ! Make sure it was similar to your github -->
 
