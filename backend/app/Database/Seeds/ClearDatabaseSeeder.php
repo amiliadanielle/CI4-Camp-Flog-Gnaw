@@ -4,27 +4,23 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class ClearDatabaseSeeder extends Seeder
+class ClearDatabaseSeeder extends UsersSeeder
 {
     public function run()
     {
+        // tables in order (truncate respecting FKs); add 'users'
+        $tablesInOrder = [
+            'users',
+            // add other tables here as needed
+        ];
+
         $db = \Config\Database::connect();
 
-        // Order matters: child tables first, then parents
-        // List down your tables here
-        $tablesInOrder = [];
-
-        $db->disableForeignKeyChecks();
-
-        try {
-            foreach ($tablesInOrder as $table) {
-                if (method_exists($db, 'tableExists') && $db->tableExists($table)) {
-                    // TRUNCATE resets AUTO_INCREMENT in MySQL
-                    $db->table($table)->truncate();
-                }
-            }
-        } finally {
-            $db->enableForeignKeyChecks();
+        foreach ($tablesInOrder as $table) {
+            // disable foreign key checks, then truncate, then enable
+            $db->query('SET FOREIGN_KEY_CHECKS=0;');
+            $db->table($table)->truncate();
+            $db->query('SET FOREIGN_KEY_CHECKS=1;');
         }
     }
 }
