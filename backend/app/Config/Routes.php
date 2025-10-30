@@ -29,3 +29,29 @@ $routes->get('roadmap', 'Roadmap::index');
 $routes->post('roadmap', 'Roadmap::index'); // handles create & update form submissions
 $routes->get('roadmap/edit/(:any)', 'Roadmap::edit/$1'); // edit by ID
 $routes->get('roadmap/delete/(:any)', 'Roadmap::delete/$1'); // delete by ID
+
+// --- Authentication pages (show forms) ---
+$routes->get('loginPage', 'LoginController::index');    // GET /loginPage -> show login form
+$routes->get('loginPage', 'LoginController::index');
+$routes->get('signupPage', 'Auth::signupPage');        // GET /signupPage -> show signup form
+
+// --- Authentication actions (form submissions) ---
+$routes->post('login', 'LoginController::authenticate'); // POST /login -> process login
+$routes->get('loginPage', 'LoginController::index');
+$routes->match(['get','post'], 'logout', 'LoginController::logout');
+$routes->post('signup', 'Auth::signup');                // POST /signup -> process signup
+
+// --- Logout (accept GET or POST) ---
+$routes->match(['get', 'post'], 'logout', 'LoginController::logout');
+
+// --- Quick placeholders for testing redirects (remove when real controllers exist) ---
+$routes->get('dashboard', function(){ echo 'User dashboard'; });
+$routes->get('admin/dashboard', function(){ echo 'Admin dashboard'; });
+
+$routes->get('landing', 'Home::landing'); // or a closure/view
+
+
+
+
+
+

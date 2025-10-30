@@ -30,35 +30,68 @@ class Users extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        // ✅ Dummy credentials (for testing, no database yet)
-        $validEmail = 'user@example.com';
-        $validPass  = 'pass123';
+        // ✅ Hardcoded user accounts
+        $users = [
+            'amiliadanielle06@gmail.com' => [
+                'password' => 'amilia123',
+                'role' => 'user'
+            ],
+            'admin@gmail.com' => [
+                'password' => 'admin123',
+                'role' => 'admin'
+            ],
+        ];
 
-        if ($email === $validEmail && $password === $validPass) {
-            // ✅ Store session data
+        // 🧩 Check if email exists and password matches
+        if (isset($users[$email]) && $password === $users[$email]['password']) {
+            $role = $users[$email]['role'];
+
+            // ✅ Set session data
             session()->set([
                 'isLoggedIn' => true,
-                'email' => $email
+                'email'      => $email,
+                'role'       => $role
             ]);
 
-            // ✅ Redirect to dashboard
-            return redirect()->to(base_url('dashboard'));
+            // 🧭 Redirect based on role
+            if ($role === 'admin') {
+                return redirect()->to(base_url('dashboard')); // Admin dashboard
+            } else {
+                return redirect()->to(base_url('landing')); // Regular user landing
+            }
         }
 
-        // ❌ Invalid credentials — reload loginPage with error message
+        // ❌ Invalid credentials
         return redirect()->back()->with('error', 'Invalid email or password.');
     }
 
-    // 🟢 Dashboard Page (only accessible if logged in)
+    // 🟢 Dashboard Page (admin only)
     public function dashboard()
     {
-        if (!session()->get('isLoggedIn')) {
-            // Not logged in → redirect to login page
+        $session = session();
+
+        // Check login
+        if (! $session->get('isLoggedIn')) {
             return redirect()->to(base_url('loginPage'));
         }
 
-        // ✅ Logged in → show dashboard view
-        return view('user/dashboard');
+        // Check role
+        if ($session->get('role') !== 'admin') {
+            return redirect()->to(base_url('landing'));
+        }
+
+        // ✅ Load admin dashboard
+        return view('dashboard'); // Loads app/Views/user/dashboard.php
+    }
+
+    // 🟢 Landing Page (user)
+    public function landing()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('loginPage'));
+        }
+
+        return view('user/landing'); // Regular user landing
     }
 
     // 🟣 Logout
@@ -68,9 +101,9 @@ class Users extends BaseController
         return redirect()->to(base_url('loginPage'));
     }
 
-   public function moodboard()
-{
-    return view('user/moodboard');
-}
-
+    // 🧡 Example: Moodboard
+    public function moodboard()
+    {
+        return view('user/moodboard');
+    }
 }
