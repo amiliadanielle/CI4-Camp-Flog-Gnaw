@@ -9,58 +9,73 @@ class UsersModel extends Model
     protected $table            = 'users';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array'; // returning arrays (you can change to entity if you add one)
+    protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'first_name', 'middle_name', 'last_name', 'email',
-        'password_hash', 'type', 'account_status', 'email_activated',
-        'newsletter', 'gender', 'profile_image'
+        'first_name','middle_name','last_name','email',
+        'password_hash','type','account_status','email_activated',
+        'newsletter','gender','profile_image'
     ];
 
-    // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation rules (example — keep form/password validation in controller)
     protected $validationRules = [
         'first_name' => 'required|max_length[100]',
         'last_name'  => 'required|max_length[100]',
         'email'      => 'required|valid_email|is_unique[users.email]',
-        // Note: do NOT validate password_hash here — handle raw password validation in controller
     ];
 
-    // Optional callbacks — uncomment and implement if you want the model to hash passwords automatically
-    // protected $beforeInsert = ['hashPassword'];
-    // protected $beforeUpdate = ['hashPassword'];
+    protected $beforeInsert = ['hashPassword'];
+    protected $beforeUpdate = ['hashPassword'];
 
-    /**
-     * Convenience: find user by email
-     *
-     * @param string $email
-     * @return array|object|null
-     */
     public function findByEmail(string $email)
     {
         return $this->where('email', $email)->first();
     }
 
     /**
-     * Example callback to hash a plain 'password' field into 'password_hash'.
-     * Uncomment the $beforeInsert/$beforeUpdate arrays above to enable.
-     *
-     * @param array $data
-     * @return array
+     * Hash password before saving.
+     * - Accepts 'password' (plain) and 'password_hash' keys.
+     * - Avoids double hashing if value already looks like a bcrypt/argon hash.
      */
     protected function hashPassword(array $data)
     {
-        if (isset($data['data']['password'])) {
-            $data['data']['password_hash'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
-            unset($data['data']['password']);
+        // normalize data pointer
+        if (!isset($data['data']) || !is_array($data['data'])) {
+            return $data;
         }
+
+        // If a plain 'password' was provided, convert to password_hash
+        if (!empty($data['data']['password'])) {
+            $pw = $data['data']['password'];
+
+            // if it already looks like a PHP password_hash (starts with $2y$ or $argon), don't re-hash
+            if (!preg_match('/^\$2y\$|^\$2a\$|^\$argon2/', $pw)) {
+                $data['data']['password_hash'] = password_hash($pw, PASSWORD_DEFAULT);
+            } else {
+                // It already looks hashed — move it to password_hash just in case
+                $data['data']['password_hash'] = $pw;
+            }
+
+            unset($data['data']['password']);
+            return $data;
+        }
+
+        // If caller provided 'password_hash' directly, ensure it isn't empty
+        if (!empty($data['data']['password_hash'])) {
+            $pwHash = $data['data']['password_hash'];
+            // nothing to do if it already looks like a hash
+            if (!preg_match('/^\$2y\$|^\$2a\$|^\$argon2/', $pwHash)) {
+                // if it's plain text (dangerous) — hash it
+                $data['data']['password_hash'] = password_hash($pwHash, PASSWORD_DEFAULT);
+            }
+        }
+
         return $data;
     }
 }
