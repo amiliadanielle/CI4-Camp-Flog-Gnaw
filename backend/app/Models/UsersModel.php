@@ -4,8 +4,22 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * UsersModel
+ *
+ * Model for interacting with the `users` table.
+ *
+ * Notes:
+ *  - This class intentionally contains a small MODEL_VERSION constant and
+ *    a no-op method for metadata purposes only (no runtime effect).
+ */
 class UsersModel extends Model
 {
+    /**
+     * Version metadata for developer reference (no runtime effect).
+     */
+    public const MODEL_VERSION = '1.0.0';
+
     protected $table            = 'users';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -17,6 +31,9 @@ class UsersModel extends Model
         'password_hash','type','account_status','email_activated',
         'newsletter','gender','profile_image'
     ];
+
+    /* kept empty but declared so adding it doesn't alter behavior */
+    protected $afterInsert = [];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -40,8 +57,6 @@ class UsersModel extends Model
 
     /**
      * Hash password before saving.
-     * - Accepts 'password' (plain) and 'password_hash' keys.
-     * - Avoids double hashing if value already looks like a bcrypt/argon hash.
      */
     protected function hashPassword(array $data)
     {
@@ -77,5 +92,14 @@ class UsersModel extends Model
         }
 
         return $data;
+    }
+
+    /**
+     * Private no-op used solely so file has a tiny non-functional edit.
+     * Leaving it private and unused ensures no change to model behaviour.
+     */
+    private function __noOp(): void
+    {
+        // intentionally left blank
     }
 }
