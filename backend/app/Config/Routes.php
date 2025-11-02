@@ -66,5 +66,12 @@ $routes->get('admin/booths', 'Admin::booths');
 $routes->get('admin/singers', 'Admin::singers');
 $routes->get('admin/tickets', 'Admin::tickets');
 
+$routes->get('account', 'AccountController::index', ['filter' => 'auth']);
+$routes->post('account/save', 'AccountController::save', ['filter' => 'auth']);
+$routes->post('account/save', 'Account::save');
+
+
+
+
 
 
