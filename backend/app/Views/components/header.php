@@ -3,7 +3,7 @@
   <div class="flex items-center space-x-6">
     <!-- Logo -->
     <a href="<?= site_url('landingPage'); ?>">
-      <img src="../img/logo.svg" alt="Logo" class="w-12 h-12 rounded-full hover:opacity-80 transition duration-300">
+      <img src="<?= base_url('img/logo.svg') ?>" alt="Logo" class="w-12 h-12 rounded-full hover:opacity-80 transition duration-300">
     </a>
   </div>
 
@@ -35,31 +35,28 @@
     <?php if ($session->get('isLoggedIn')): 
         $firstName = explode(' ', trim($session->get('name')))[0] ?? 'User'; ?>
         
-        <!-- Cart Icon (simpler) -->
-        <a href="<?= site_url('cart'); ?>" class="relative ml-4 text-white hover:text-orange-400 transition duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9h14l-2-9M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z"/>
-          </svg>
-        </a>
-
-        <!-- Profile -->
+        <!-- Profile Dropdown (identical to Info, but slightly larger width) -->
         <div class="relative ml-4 group">
-          <button class="flex items-center gap-2 focus:outline-none">
+          <a href="#" class="flex items-center gap-2 focus:outline-none hover:text-sky-300 transition duration-300" id="profileBtn" aria-haspopup="true" aria-expanded="false" aria-controls="profileMenu">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-8 h-8 text-white rounded-full bg-gray-800 p-1" viewBox="0 0 24 24">
               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
             <span class="font-medium text-white">Hello, <?= esc($firstName) ?>!</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-white">
+            <svg class="w-4 h-4 text-white transform group-hover:rotate-180 transition duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
             </svg>
-          </button>
+          </a>
 
-          <!-- Profile Dropdown (animated like Info) -->
-          <div class="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg
+          <div id="profileMenu" class="absolute right-0 top-full mt-2 w-52 bg-white/90 backdrop-blur-lg text-black rounded-xl shadow-lg
                       opacity-0 translate-y-3 scale-95 invisible group-hover:visible group-hover:opacity-100
-                      group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300 ease-out origin-top z-50">
-            <a href="<?= site_url('account'); ?>" class="block px-4 py-2 hover:bg-orange-50 text-gray-700">Account</a>
-            <a href="<?= site_url('logout'); ?>" class="block px-4 py-2 hover:bg-orange-50 text-gray-700">Logout</a>
+                      group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300 ease-out origin-top z-50"
+               role="menu" aria-labelledby="profileBtn">
+            <a href="<?= site_url('account'); ?>" class="block px-5 py-3 rounded-t-xl text-gray-700 hover:bg-sky-100 hover:text-sky-700 transition duration-200" role="menuitem">
+              👤 Account
+            </a>
+            <a href="<?= site_url('logout'); ?>" class="block px-5 py-3 rounded-b-xl text-gray-700 hover:bg-sky-100 hover:text-sky-700 transition duration-200" role="menuitem">
+              🚪 Logout
+            </a>
           </div>
         </div>
 
@@ -72,3 +69,35 @@
 
   </nav>
 </header>
+
+<!-- Script: makes dropdown toggle work on touch devices -->
+<script>
+  (function(){
+    const profileMenu = document.getElementById('profileMenu');
+    if (!profileMenu) return;
+    const group = profileMenu.closest('.group');
+    const btn = document.getElementById('profileBtn');
+
+    btn?.addEventListener('click', (e) => {
+      profileMenu.classList.toggle('visible');
+      btn.setAttribute('aria-expanded', profileMenu.classList.contains('visible'));
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (ev) => {
+      if (!group.contains(ev.target)) {
+        profileMenu.classList.remove('visible');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') {
+        profileMenu.classList.remove('visible');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+  })();
+</script>
