@@ -4,8 +4,22 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+/**
+ * UsersModel
+ *
+ * Model for interacting with the `users` table.
+ *
+ * Notes:
+ *  - This class intentionally contains a small MODEL_VERSION constant and
+ *    a no-op method for metadata purposes only (no runtime effect).
+ */
 class UsersModel extends Model
 {
+    /**
+     * Version metadata for developer reference (no runtime effect).
+     */
+    public const MODEL_VERSION = '1.0.0';
+
     protected $table            = 'users';
     protected $primaryKey       = 'id';
     protected $returnType       = 'array';
@@ -113,5 +127,14 @@ class UsersModel extends Model
         }
 
         return $data;
+    }
+
+    /**
+     * Private no-op used solely so file has a tiny non-functional edit.
+     * Leaving it private and unused ensures no change to model behaviour.
+     */
+    private function __noOp(): void
+    {
+        // intentionally left blank
     }
 }
